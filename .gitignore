@@ -22,12 +22,24 @@ project/plugins/project/
 /bin/
 /sandbox/
 
-# eclipse, intellij
-/.classpath
-/.project
-/.cache
-/.settings
+#eclipse
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
 
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
 
 
 
