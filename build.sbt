@@ -9,3 +9,6 @@ scalacOptions ++= Seq("-deprecation", "-feature")
 libraryDependencies += "org.scalatest" %% "scalatest" % "1.9.1" % "test"
 
 libraryDependencies += "junit" % "junit" % "4.10" % "test"
+
+// this will put the files into a folder called lib_managed
+retrieveManaged := true
