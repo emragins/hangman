@@ -1,14 +1,17 @@
 # https://raw.github.com/scala/scala/master/gitignore.SAMPLE
 
-*.jar
+#*.jar
 *~
+*.class
+*.log
 
-#sbt
-/project/target/
-/project/project/target
-
-/target/
-/src/jline/target/
+ # sbt specific
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
 
 # target directories for ant build
 /build/
@@ -22,12 +25,25 @@
 # eclipse, intellij
 /.classpath
 /.project
-/src/intellij/*.iml
-/src/intellij/*.ipr
-/src/intellij/*.iws
 /.cache
-/.idea
 /.settings
+
+
+
+
+
+
+#intellij
+.idea/scopes/
+.idea/dictionaries/
+.idea/inspectionProfiles/
+.idea/workspace.xml
+.idea/codeStyleSettings.xml
+.idea/scala_compiler.xml
+/classes
+/dist
+/SDK/*SDK
+/*.bat
 
 # bak files produced by ./cleanup-commit
 *.bak

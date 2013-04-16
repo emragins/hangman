@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="scalatest_2.10-1.9.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib_managed/jars/org.scalatest/scalatest_2.10/scalatest_2.10-1.9.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_managed/jars/org.scala-lang/scala-reflect/scala-reflect-2.10.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_managed/jars/org.scala-lang/scala-actors/scala-actors-2.10.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_managed/jars/junit/junit/junit-4.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib_managed/jars/org.hamcrest/hamcrest-core/hamcrest-core-1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib_managed/jars/org.hamcrest/hamcrest-core/hamcrest-core-1.1.jar!/" />
+    </SOURCES>
+  </library>
+</component>
