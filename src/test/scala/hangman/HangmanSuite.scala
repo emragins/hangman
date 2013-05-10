@@ -1,3 +1,4 @@
+
 package hangman
 
 import org.scalatest.FunSuite
