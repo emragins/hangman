@@ -12,12 +12,18 @@ object Main extends App
 	Console.println("Dictionary loaded! First word is " + dictionary(0))
 	
 	Console.println("Starting up main loop.  Hit 'Ctrl-C' to exit the application.")
-	mainLoop()
+	mainLoop(0)
 	
-	def mainLoop() : Nothing = {
+	def mainLoop(turnCount: Int) : Nothing = {
+	  
+	  //this line uses string interpolation.  The 's' in front is its cue
+	  //http://docs.scala-lang.org/overviews/core/string-interpolation.html for more information
+	  Console.println(s"********* Turn $turnCount *********")
+	  
 	  Console.print("Please enter a character: ")
 	  val char = Console.readChar
 	  Console.println("You entered the character: " + char)
-	  mainLoop
+	  
+	  mainLoop(turnCount + 1)
 	}
 }
