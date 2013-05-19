@@ -9,4 +9,19 @@ object ascii {
    |      / \
    |
   _|___"""
+    
+  val peace = """
+       _    (^)
+      (_\   |_|
+       \_\  |_|
+       _\_\,/_|
+      (`\(_|`\|
+     (`\,)  \ \
+      \,)   | |
+        \__(__|"""
+    
+  val credits = """
+    ~ Special thanks ~
+    http://ascii.co.uk
+    """
 }
