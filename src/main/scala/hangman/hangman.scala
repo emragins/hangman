@@ -2,8 +2,13 @@ package hangman
 
 import dictionary.loadDictionary
 import scala.util.Random
+import com.sun.org.apache.xml.internal.utils.CharKey
 
 object Main extends App {
+
+  type Guess = Char
+
+
   Console.println("*~* Hangman *~*")
 
   Console.print("Loading dictionary...")
@@ -17,11 +22,12 @@ object Main extends App {
 
   def newGame(): Nothing = {
 
-    val targetWord: String = randomDictionaryWord
-    val neededLetters: Set[Char] = targetWord.toSet
 
-    case class Guesses(good: Set[Char], bad: Set[Char]) {
-      def add(guess: Char): Guesses = {
+    val targetWord: String = randomDictionaryWord
+    val neededLetters: Set[Guess] = targetWord.toSet
+
+    case class Guesses(good: Set[Guess], bad: Set[Guess]) {
+      def add(guess: Guess): Guesses = {
         val goodGuess = neededLetters.contains(guess)
 
         if (goodGuess)
@@ -33,15 +39,15 @@ object Main extends App {
       override def toString() = bad.union(good).mkString(", ")
     }
 
+
     def startTurns(): Nothing = {
 
       Console.println(s"********* New Game *********")
       Console.println(s"-- DEBUG: The target word is $targetWord")
-      Console.println(s"The word you are looking for has ${targetWord.length} letters")
-      Console.print("Please enter a character: ")
-      val currentGuess = Console.readChar
 
-      userTurn(2, Guesses(Set(), Set()).add(currentGuess))
+      Console.println("Word: " + printTargetWord(targetWord, Set()))
+
+      userTurn(2, Guesses(Set(), Set()).add(userGuess))
     }
 
     def userTurn(turnCount: Int, guesses: Guesses): Nothing = {
@@ -53,10 +59,7 @@ object Main extends App {
 
       Console.println("Word: " + printTargetWord(targetWord, guesses.good))
 
-      Console.print("Please enter a character: ")
-      val currentGuess = Console.readChar
-
-      val updatedGuesses = guesses.add(currentGuess)
+      val updatedGuesses = guesses.add(userGuess)
 
       if (wordFound(neededLetters, updatedGuesses.good))
         endGame(true)
@@ -67,17 +70,16 @@ object Main extends App {
 
     }
 
-    def endGame(gameWon: Boolean) =
-      {
-        if (gameWon) {
-          println("~*~ Congratulations! You found the word! ~*~")
-          println(ascii.peace)
-        } else
-          println(ascii.hungMan)
+    def endGame(gameWon: Boolean) = {
+      if (gameWon) {
+        println("~*~ Congratulations! You found the word! ~*~")
+        println(ascii.peace)
+      } else
+        println(ascii.hungMan)
 
-        println()
-        newGame()
-      }
+      println()
+      newGame()
+    }
 
     startTurns()
 
@@ -86,7 +88,7 @@ object Main extends App {
 
   def randomDictionaryWord: String = {
     //a random number may come back as negative, so we need to take absolute value
-    val nextInt = Math.abs(Random.nextInt)
+    val nextInt = Math.abs(Random.nextInt())
 
     // take 'mod' of the random number by length of the dictionary to ensure it exists
     val index = nextInt % dictionary.length
@@ -94,19 +96,34 @@ object Main extends App {
     dictionary(index)
   }
 
-  def printTargetWord(targetWord: String, guessedLetters: Set[Char]): String = {
-    //make a new list of Char. display 'c' if present in guessedLetters, otherwise '_'
-    (targetWord map (c =>
-      {
-        if (guessedLetters.contains(c)) c
-        else '_'
-
-      })) mkString " "
+  def printTargetWord(targetWord: String, guessedLetters: Set[Guess]): String = {
+    //make a new list of Guess. display 'c' if present in guessedLetters, otherwise '_'
+    (targetWord map (c => {
+      if (guessedLetters.contains(c)) c
+      else '_'
+    })) mkString " "
   }
 
-  def wordFound(neededLettersSet: Set[Char], guessedLetters: Set[Char]): Boolean =
+  def wordFound(neededLettersSet: Set[Guess], guessedLetters: Set[Guess]): Boolean =
     neededLettersSet.subsetOf(guessedLetters)
 
-  def guessedWrong(neededLettersSet: Set[Char], guessedLetters: Set[Char]): Set[Char] =
+  def guessedWrong(neededLettersSet: Set[Guess], guessedLetters: Set[Guess]): Set[Guess] =
     guessedLetters -- neededLettersSet
+
+  def userGuess: Guess = {
+    try {
+      Console.print("Please enter a Character: ")
+      Console.readChar() match {
+        case c if c.isLetter => c.toUpper
+        case _ => {
+          Console.println("That was not a known letter.")
+          userGuess
+        }
+      }
+    }
+    catch {
+      case e: Exception => userGuess
+    }
+
+  }
 }
